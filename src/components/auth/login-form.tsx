@@ -6,6 +6,8 @@ import { useState, useTransition } from "react";
 import { signIn } from "next-auth/react";
 import * as z from "zod";
 import { LoginSchema } from "@/schemas";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 export const LoginForm = () => {
   const [isPending, startTransition] = useTransition();
@@ -20,7 +22,7 @@ export const LoginForm = () => {
     setError("");
 
     startTransition(async () => {
-    
+
       const result = await signIn("credentials", {
         email: values.email,
         password: values.password,
@@ -38,7 +40,7 @@ export const LoginForm = () => {
     <div className="max-w-md w-full mx-auto p-6 bg-white rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-4">Login</h2>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <input
+        {/* <input
           {...form.register("email")}
           disabled={isPending}
           placeholder="Email"
@@ -58,7 +60,21 @@ export const LoginForm = () => {
           className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700 disabled:bg-gray-400"
         >
           {isPending ? "Logging in..." : "Login"}
-        </button>
+        </button> */}
+        
+        <Input
+          {...form.register("email")}
+          placeholder="Email Address"
+          type="email"
+        />
+        <Input
+          {...form.register("password")}
+          placeholder="Password"
+          type="password"
+        />
+        <Button isLoading={isPending} type="submit">
+          Login
+        </Button>
       </form>
     </div>
   );
