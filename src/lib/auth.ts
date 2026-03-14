@@ -1,0 +1,61 @@
+import { NextAuthOptions } from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import bcrypt from "bcryptjs";
+import { connectDB } from "./db";
+import User from "@/models/User";
+import { LoginSchema } from "@/schemas";
+
+export const authOptions: NextAuthOptions = {
+  session: { strategy: "jwt" },
+  pages: {
+    signIn: "/login", 
+  },
+  providers: [
+    CredentialsProvider({
+      name: "credentials",
+      credentials: { email: {}, password: {} },
+      async authorize(credentials) {
+       
+        const validatedFields = LoginSchema.safeParse(credentials);
+
+        if (validatedFields.success) {
+          const { email, password } = validatedFields.data;
+
+          await connectDB();
+         
+          const user = await User.findOne({ email }).select("+password");
+
+          if (!user || !user.password) return null;
+
+          const passwordsMatch = await bcrypt.compare(password, user.password);
+
+          if (passwordsMatch) {
+            return {
+              id: user._id.toString(),
+              email: user.email,
+              name: user.name,
+              role: user.role,
+            };
+          }
+        }
+        return null;
+      },
+    }),
+  ],
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.role = (user as any).role;
+        token.id = user.id;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (token && session.user) {
+        (session.user as any).id = token.id;
+        (session.user as any).role = token.role;
+      }
+      return session;
+    },
+  },
+};
