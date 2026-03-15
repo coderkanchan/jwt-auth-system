@@ -4,25 +4,30 @@ import bcrypt from "bcryptjs";
 import { connectDB } from "./db";
 import User from "@/models/User";
 import { LoginSchema } from "@/schemas";
+import GoogleProvider from "next-auth/providers/google";
 
 export const authOptions: NextAuthOptions = {
   session: { strategy: "jwt" },
   pages: {
-    signIn: "/login", 
+    signIn: "/login",
   },
   providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    }),
     CredentialsProvider({
       name: "credentials",
       credentials: { email: {}, password: {} },
       async authorize(credentials) {
-       
+
         const validatedFields = LoginSchema.safeParse(credentials);
 
         if (validatedFields.success) {
           const { email, password } = validatedFields.data;
 
           await connectDB();
-         
+
           const user = await User.findOne({ email }).select("+password");
 
           if (!user || !user.password) return null;
