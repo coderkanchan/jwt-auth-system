@@ -8,6 +8,7 @@ import * as z from "zod";
 import { LoginSchema } from "@/schemas";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Social } from "@/components/auth/social"
 
 export const LoginForm = () => {
   const [isPending, startTransition] = useTransition();
@@ -38,7 +39,7 @@ export const LoginForm = () => {
 
   return (
     <div className="max-w-md w-full mx-auto p-6 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-4">Login</h2>
+      <h2 className="text-2xl font-bold mb-4 text-gray-600">Login</h2>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         {/* <input
           {...form.register("email")}
@@ -61,20 +62,34 @@ export const LoginForm = () => {
         >
           {isPending ? "Logging in..." : "Login"}
         </button> */}
-        
+
         <Input
           {...form.register("email")}
           placeholder="Email Address"
+          required
           type="email"
         />
         <Input
           {...form.register("password")}
           placeholder="Password"
+          required
           type="password"
         />
         <Button isLoading={isPending} type="submit">
           Login
         </Button>
+
+        <div className="mt-4">
+          <div className="relative mb-4">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full text-gray-400 border-t" />
+            </div>
+            <div className="relative flex justify-center text-xs text-gray-400 uppercase">
+              <span className="bg-white px-2 text-muted-foreground">Or continue with</span>
+            </div>
+          </div>
+          <Social />
+        </div>
       </form>
     </div>
   );
