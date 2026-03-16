@@ -19,7 +19,7 @@ export const Navbar = async () => {
           </>
         ) : (
           <>
-            <span className="text-sm text-gray-600">Hi, {session.user?.name}</span>
+            <span className="text-sm text-gray-300">Hi, {session.user?.name}</span>
             <LogoutButton>
               <button className="text-sm bg-red-500 text-white px-4 py-2 rounded-md">
                 Logout
