@@ -19,7 +19,7 @@ export default async function HomePage() {
         <div className="flex justify-center gap-4">
           {session ? (
             <Link href="/dashboard">
-              <Button className="bg-white text-black hover:bg-gray-200 w-auto px-8">
+              <Button className="bg-gray-400 text-black hover:bg-gray-200 w-auto px-8">
                 Go to Dashboard
               </Button>
             </Link>
