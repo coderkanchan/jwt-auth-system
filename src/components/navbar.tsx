@@ -7,7 +7,7 @@ export const Navbar = async () => {
   const session = await getServerSession(authOptions);
 
   return (
-    <nav className="flex justify-between items-center py-4 px-8 bg-white shadow-sm">
+    <nav className="flex justify-between items-center py-4 px-8 bg-gray-500 shadow-sm">
       <Link href="/" className="font-bold text-xl">
         JWT Auth
       </Link>
