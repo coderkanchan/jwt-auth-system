@@ -48,6 +48,18 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
+    async signIn({ user, account }) {
+      if (account?.provider !== "credentials") return true;
+
+      await connectDB();
+      const existingUser = await User.findById(user.id);
+
+      if (!existingUser || !existingUser.emailVerified) {
+        return false;
+      }
+
+      return true;
+    },
     async jwt({ token, user }) {
       if (user) {
         token.role = (user as any).role;
