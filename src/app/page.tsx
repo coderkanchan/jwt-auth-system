@@ -26,7 +26,7 @@ export default async function HomePage() {
           ) : (
             <>
               <Link href="/login">
-                <Button className="bg-white text-black hover:bg-gray-200 w-auto px-8">
+                <Button className="bg-blue-400 text-black hover:bg-gray-800 w-auto px-8">
                   Sign In
                 </Button>
               </Link>
