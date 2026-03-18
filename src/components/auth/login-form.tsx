@@ -62,7 +62,6 @@ export const LoginForm = () => {
     });
   };
 
-
   return (
     <div className="max-w-md w-full mx-auto p-6 bg-white rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-4 text-gray-600">Login</h2>
