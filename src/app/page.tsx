@@ -19,19 +19,19 @@ export default async function HomePage() {
         <div className="flex justify-center gap-4">
           {session ? (
             <Link href="/dashboard">
-              <button className="bg-gray-400 text-black hover:bg-gray-200 w-auto px-8">
+              <button className=" inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:pointer-events-none disabled:opacity-50 bg-blue-600 text-white hover:bg-blue-700 h-10 px-4 py-2 w-full disabled:bg-gray-400">
                 Go to Dashboard
               </button>
             </Link>
           ) : (
             <>
               <Link href="/login">
-                <button className="bg-blue-400 text-black hover:bg-gray-800 w-auto px-8">
+                <button className=" inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:pointer-events-none disabled:opacity-50 bg-blue-600 text-white hover:bg-blue-700 h-10 px-4 py-2 w-full disabled:bg-gray-400">
                   Sign In
                 </button>
               </Link>
               <Link href="/register">
-                <button className="bg-blue-600 text-white hover:bg-blue-700 w-auto px-8 border-none">
+                <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:pointer-events-none disabled:opacity-50 bg-blue-600 text-white hover:bg-blue-700 h-10 px-4 py-2 w-full disabled:bg-gray-400">
                   Get Started
                 </button>
               </Link>

@@ -7,10 +7,14 @@ import * as z from "zod";
 import { LoginSchema } from "@/schemas";
 import { Social } from "@/components/auth/social"
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { toast } from 'sonner';
 
 export const LoginForm = () => {
+  const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>("");
+  const [success, setSuccess] = useState<string | undefined>("");
 
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
@@ -19,17 +23,27 @@ export const LoginForm = () => {
 
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
     setError("");
+    setSuccess("");
     startTransition(async () => {
       const result = await signIn("credentials", {
         email: values.email,
         password: values.password,
-        redirect: true,
-        callbackUrl: "/dashboard",
+        redirect: false,
       });
 
       if (result?.error) {
         setError("Invalid credentials!");
+      } if (result?.ok) {
+        toast.success('Welcome back!', {
+          description: 'Login Successful. Redirecting...', duration: 1500
+        });
+        setTimeout(() => {
+          router.push("/dashboard");
+          router.refresh();
+        }, 3000);
       }
+
+
     });
   };
 
@@ -55,7 +69,16 @@ export const LoginForm = () => {
             {error}
           </p>
         }
-
+        {success && (
+          <div className="space-y-2">
+            <div className="p-3 bg-green-100 text-green-600 rounded-lg text-sm">
+              {success}
+            </div>
+            <p className="text-center text-xs text-gray-500 italic">
+              Please check your inbox to verify your account.
+            </p>
+          </div>
+        )}
         <button
           type="submit"
           disabled={isPending}

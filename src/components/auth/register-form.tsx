@@ -36,7 +36,7 @@ export const RegisterForm = () => {
 
         if (data?.success) {
           toast.success('Welcome back!', {
-            description: 'Login Successful. Redirecting...', duration: 800
+            description: 'Account Created Successful. Redirecting...', duration: 800
           });
           setTimeout(() => {
             router.push("/dashboard");
@@ -78,11 +78,7 @@ export const RegisterForm = () => {
             {error}
           </div>
         }
-        {success &&
-          <div className="p-3 bg-green-100 text-green-600 rounded-lg text-sm">
-            {success}
-          </div>
-        }
+        
         {success && (
           <div className="space-y-2">
             <div className="p-3 bg-green-100 text-green-600 rounded-lg text-sm">
