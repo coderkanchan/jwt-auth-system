@@ -9,6 +9,7 @@ import { LoginSchema } from "@/schemas";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Social } from "@/components/auth/social"
+import Link from "next/link";
 
 export const LoginForm = () => {
   const [isPending, startTransition] = useTransition();
@@ -84,12 +85,19 @@ export const LoginForm = () => {
             <div className="absolute inset-0 flex items-center">
               <span className="w-full text-gray-400 border-t" />
             </div>
-            <div className="relative flex justify-center text-xs text-gray-400 uppercase">
+            <div className="relative flex justify-center text-xs text-gray-500 uppercase">
               <span className="bg-white px-2 text-muted-foreground">Or continue with</span>
             </div>
           </div>
           <Social />
         </div>
+
+        <p className="text-center mt-5 text-xs font-semibold text-gray-400">
+          Already have an account?{" "}
+          <Link href="/register" className="text-blue-500 hover:underline">
+            register
+          </Link>
+        </p>
       </form>
     </div>
   );

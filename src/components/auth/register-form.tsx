@@ -7,6 +7,8 @@ import * as z from "zod";
 import { RegisterSchema } from "@/schemas";
 import { register } from "@/actions/register";
 import { Social } from "./social";
+import Link from "next/link";
+
 export const RegisterForm = () => {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>("");
@@ -110,6 +112,14 @@ export const RegisterForm = () => {
           </div>
           <Social />
         </div>
+
+        <p className="text-center mt-5 text-xs font-semibold text-gray-400">
+          Already have an account?{" "}
+          <Link href="/login" className="text-blue-500 hover:underline">
+            login
+          </Link>
+        </p>
+
       </form>
     </div>
   );
