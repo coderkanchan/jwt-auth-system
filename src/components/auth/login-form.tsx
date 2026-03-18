@@ -32,22 +32,21 @@ export const LoginForm = () => {
       });
 
       if (result?.error) {
+        form.setValue("password", ""); 
         setError("Invalid credentials!");
-         toast.success('Welcome back!', {
-          description: 'Login Successful. Redirecting...', duration: 1500
-        });
-        form.reset();
-      } if (result?.ok) {
+      }
+
+      if (result?.ok && !result?.error) {
         toast.success('Welcome back!', {
-          description: 'Login Successful. Redirecting...', duration: 1500
+          description: 'Login Successful. Redirecting...',
+          duration: 1500
         });
+
         setTimeout(() => {
           router.push("/dashboard");
           router.refresh();
-        }, 3000);
-        form.reset();
+        }, 1500);
       }
-
     });
   };
 

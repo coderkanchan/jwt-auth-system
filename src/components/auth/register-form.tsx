@@ -8,10 +8,8 @@ import { register } from "@/actions/register";
 import { Social } from "./social";
 import Link from "next/link";
 import { toast } from 'sonner';
-import { useRouter } from "next/navigation";
 
 export const RegisterForm = () => {
-  const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");

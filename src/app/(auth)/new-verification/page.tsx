@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { newVerification } from "@/actions/new-verification";
 import { useRouter } from "next/navigation";
-
+import { toast } from "sonner";
 export default function NewVerificationPage() {
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
@@ -14,6 +14,8 @@ export default function NewVerificationPage() {
   const token = searchParams.get("token");
 
   const onSubmit = useCallback(() => {
+    if (success || error) return;
+
     if (!token) {
       setError("Missing token!");
       return;
@@ -25,15 +27,16 @@ export default function NewVerificationPage() {
         setError(data.error);
 
         if (data.success) {
+          toast.success("Email verified!");
           setTimeout(() => {
-            router.push("/login");
-          }, 3000);
+            router.push("/dashboard");
+          }, 2000);
         }
       })
       .catch(() => {
         setError("Something went wrong!");
       });
-  }, [token, router]);
+  }, [token, success, error, router]);
 
   useEffect(() => {
     onSubmit();
