@@ -1,9 +1,57 @@
 "use client";
 
+// import { useState } from "react";
+// import { useSearchParams, useRouter } from "next/navigation";
+// import { newVerification } from "@/actions/new-verification";
+// import { toast } from "sonner";
+
+// export default function NewVerificationPage() {
+//   const [isPending, setIsPending] = useState(false);
+//   const [error, setError] = useState<string | undefined>();
+//   const [success, setSuccess] = useState<string | undefined>();
+
+//   const searchParams = useSearchParams();
+//   const router = useRouter();
+//   const token = searchParams.get("token");
+
+//   const onVerify = async () => {
+//     if (!token) {
+//       setError("Missing token!");
+//       return;
+//     }
+
+//     setIsPending(true);
+//     setError("");
+//     setSuccess("");
+
+//     try {
+//       const data = await newVerification(token);
+
+//       if (data?.error) {
+//         setError(data.error);
+//         setIsPending(false);
+//       }
+
+//       if (data?.success) {
+//         setSuccess(data.success);
+//         toast.success("Verification successful! Opening dashboard...");
+
+//         setTimeout(() => {
+//           router.push("/dashboard");
+//           router.refresh();
+//         }, 2000);
+//       }
+//     } catch (err) {
+//       setError("Something went wrong!");
+//       setIsPending(false);
+//     }
+//   };
+
 import { useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { newVerification } from "@/actions/new-verification";
 import { toast } from "sonner";
+import { signIn } from "next-auth/react"; 
 
 export default function NewVerificationPage() {
   const [isPending, setIsPending] = useState(false);
@@ -30,15 +78,29 @@ export default function NewVerificationPage() {
       if (data?.error) {
         setError(data.error);
         setIsPending(false);
+        return;
       }
 
       if (data?.success) {
         setSuccess(data.success);
-        toast.success("Verification successful! Opening dashboard...");
+
+        const loginResult = await signIn("credentials", {
+          email: data.email,
+          password: data.password, 
+          redirect: false,
+        });
+
+        if (loginResult?.error) {
+          setError("Verification successful but login failed. Please login manually.");
+          setIsPending(false);
+          return;
+        }
+
+        toast.success("Account Verified & Logged In! ✨");
 
         setTimeout(() => {
           router.push("/dashboard");
-          router.refresh();
+          router.refresh(); 
         }, 2000);
       }
     } catch (err) {

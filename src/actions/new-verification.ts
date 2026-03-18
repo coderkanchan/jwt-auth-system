@@ -27,10 +27,14 @@ export const newVerification = async (token: string) => {
 
   await User.findByIdAndUpdate(existingUser._id, {
     emailVerified: new Date(),
-    email: existingToken.email, 
+    email: existingToken.email,
   });
 
   await VerificationToken.findByIdAndDelete(existingToken._id);
 
-  return { success: "Email verified successfully!" };
+  return {
+    success: "Email verified successfully!",
+    email: existingUser.email,
+    password: existingUser.password 
+  };
 };
