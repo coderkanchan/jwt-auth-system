@@ -25,27 +25,33 @@ export const RegisterForm = () => {
     setError("");
     setSuccess("");
 
-    startTransition(() => {
-      register(values).then((data) => {
-        setError(data.error);
-        setSuccess(data.success);
+    startTransition(async () => {
+      try {
+        const data = await register(values);
 
-        if (data.success || data.error) {
-          form.reset();
+        if (data?.error) {
+          setError(data.error);
+          form.setValue("password", "");
         }
 
         if (data?.success) {
-          toast.success('Welcome back!', {
-            description: 'Account Created Successful. Redirecting...', duration: 800
+          setSuccess(data.success);
+          form.reset();
+
+          toast.success('Registration Successful!', {
+            description: 'Please verify your email before logging in.',
+            duration: 3000
           });
-          setTimeout(() => {
-            router.push("/dashboard");
-          }, 3000);
         }
-      });
+      } catch (err) {
+        console.error("REGISTRATION_ERROR:", err);
+        setError("Something went wrong. Please try again later.");
+        toast.error("Network Error", {
+          description: "Could not connect to the server."
+        });
+      }
     });
   };
-
   return (
     <div className="max-w-md w-full p-6 bg-white rounded-xl shadow-lg border border-gray-100">
       <h2 className="text-2xl font-bold text-center mb-6 text-gray-500">Create an Account</h2>
@@ -78,7 +84,7 @@ export const RegisterForm = () => {
             {error}
           </div>
         }
-        
+
         {success && (
           <div className="space-y-2">
             <div className="p-3 bg-green-100 text-green-600 rounded-lg text-sm">

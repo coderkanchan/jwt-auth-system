@@ -33,6 +33,10 @@ export const LoginForm = () => {
 
       if (result?.error) {
         setError("Invalid credentials!");
+         toast.success('Welcome back!', {
+          description: 'Login Successful. Redirecting...', duration: 1500
+        });
+        form.reset();
       } if (result?.ok) {
         toast.success('Welcome back!', {
           description: 'Login Successful. Redirecting...', duration: 1500
@@ -41,8 +45,8 @@ export const LoginForm = () => {
           router.push("/dashboard");
           router.refresh();
         }, 3000);
+        form.reset();
       }
-
 
     });
   };
