@@ -1,5 +1,4 @@
 "use client";
-
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useTransition } from "react";
@@ -8,8 +7,11 @@ import { RegisterSchema } from "@/schemas";
 import { register } from "@/actions/register";
 import { Social } from "./social";
 import Link from "next/link";
+import { toast } from 'sonner';
+import { useRouter } from "next/navigation";
 
 export const RegisterForm = () => {
+  const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
@@ -18,18 +20,6 @@ export const RegisterForm = () => {
     resolver: zodResolver(RegisterSchema),
     defaultValues: { email: "", password: "", name: "" },
   });
-
-  // const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
-  //   setError("");
-  //   setSuccess("");
-
-  //   startTransition(() => {
-  //     register(values).then((data) => {
-  //       setError(data.error);
-  //       setSuccess(data.success);
-  //     });
-  //   });
-  // };
 
   const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
     setError("");
@@ -40,8 +30,17 @@ export const RegisterForm = () => {
         setError(data.error);
         setSuccess(data.success);
 
-        if (data.success) {
+        if (data.success || data.error) {
           form.reset();
+        }
+
+        if (data?.success) {
+          toast.success('Welcome back!', {
+            description: 'Login Successful. Redirecting...', duration: 800
+          });
+          setTimeout(() => {
+          router.push("/dashboard");
+          }, 3000);
         }
       });
     });
@@ -74,9 +73,10 @@ export const RegisterForm = () => {
           className="w-full p-3 border border-gray-500 text-gray-800 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
         />
 
-        {error && <div className="p-3 bg-red-100 text-red-600 rounded-lg text-sm">
-          {error}
-        </div>
+        {error &&
+          <div className="p-3 bg-red-100 text-red-600 rounded-lg text-sm">
+            {error}
+          </div>
         }
         {success &&
           <div className="p-3 bg-green-100 text-green-600 rounded-lg text-sm">

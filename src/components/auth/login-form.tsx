@@ -46,16 +46,21 @@ export const LoginForm = () => {
           {...form.register("email")}
           disabled={isPending}
           placeholder="Email"
-          className="w-full p-2 border rounded"
+          className="w-full p-2 border rounded-md  border-gray-300 bg-white"
         />
         <input
           {...form.register("password")}
           disabled={isPending}
           type="password"
           placeholder="Password"
-          className="w-full p-2 border rounded"
+          className="w-full p-2 border rounded-md  border-gray-300 bg-white"
         />
-        {error && <p className="text-red-500 text-sm">{error}</p>}
+        {error &&
+          <p className="text-red-500 text-sm">
+            {error}
+          </p>
+        }
+
         <button
           type="submit"
           disabled={isPending}
@@ -76,6 +81,13 @@ export const LoginForm = () => {
           required
           type="password"
         />
+
+        {error &&
+          <p className="text-red-500 text-sm">
+            {error}
+          </p>
+        }
+
         <Button isLoading={isPending} type="submit">
           Login
         </Button>
