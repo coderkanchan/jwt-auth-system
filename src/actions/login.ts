@@ -2,10 +2,10 @@
 
 import * as z from "zod";
 import { LoginSchema } from "@/schemas";
-import { connectDB } from "@/lib/db";
-import { getUserByEmail } from "@/data/user"; 
+import { getUserByEmail } from "@/data/user";
 import { sendVerificationEmail } from "@/lib/mail";
 import { generateVerificationToken } from "@/lib/tokens";
+import bcrypt from "bcryptjs"; 
 
 export const login = async (values: z.infer<typeof LoginSchema>) => {
   const validatedFields = LoginSchema.safeParse(values);
@@ -22,9 +22,18 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
     return { error: "Email does not exist!" };
   }
 
+  const passwordsMatch = await bcrypt.compare(
+    password,
+    existingUser.password
+  );
+
+  if (!passwordsMatch) {
+    return { error: "Invalid credentials!" };
+  }
+
   if (!existingUser.emailVerified) {
     const verificationToken = await generateVerificationToken(existingUser.email);
-    
+
     await sendVerificationEmail(
       verificationToken.email,
       verificationToken.token,
