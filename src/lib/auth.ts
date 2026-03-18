@@ -19,6 +19,7 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       name: "credentials",
       credentials: { email: {}, password: {} },
+
       async authorize(credentials) {
 
         const validatedFields = LoginSchema.safeParse(credentials);
@@ -32,7 +33,9 @@ export const authOptions: NextAuthOptions = {
 
           if (!user || !user.password) return null;
 
-          const passwordsMatch = await bcrypt.compare(password, user.password);
+          const isAlreadyHashed = password === user.password;
+
+          const passwordsMatch = isAlreadyHashed || await bcrypt.compare(password, user.password);
 
           if (passwordsMatch) {
             return {
