@@ -9,6 +9,7 @@ import { Social } from "@/components/auth/social"
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from 'sonner';
+import { login } from "@/actions/login"
 
 export const LoginForm = () => {
   const router = useRouter();
@@ -25,6 +26,19 @@ export const LoginForm = () => {
     setError("");
     setSuccess("");
     startTransition(async () => {
+     
+      const data = await login(values);
+
+      if (data?.error) {
+        setError(data.error);
+        return; 
+      }
+
+      if (data?.success === "Confirmation email sent!") {
+        setSuccess(data.success);
+        return;
+      }
+
       const result = await signIn("credentials", {
         email: values.email,
         password: values.password,
@@ -32,7 +46,6 @@ export const LoginForm = () => {
       });
 
       if (result?.error) {
-        form.setValue("password", ""); 
         setError("Invalid credentials!");
       }
 
@@ -41,7 +54,6 @@ export const LoginForm = () => {
           description: 'Login Successful. Redirecting...',
           duration: 1500
         });
-
         setTimeout(() => {
           router.push("/dashboard");
           router.refresh();
@@ -49,6 +61,7 @@ export const LoginForm = () => {
       }
     });
   };
+
 
   return (
     <div className="max-w-md w-full mx-auto p-6 bg-white rounded-lg shadow-md">
