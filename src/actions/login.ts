@@ -2,9 +2,10 @@
 
 import * as z from "zod";
 import { LoginSchema } from "@/schemas";
+import { connectDB } from "@/lib/db";
 import { getUserByEmail } from "@/data/user"; 
-import { generateVerificationToken } from "@/lib/tokens";
 import { sendVerificationEmail } from "@/lib/mail";
+import { generateVerificationToken } from "@/lib/tokens";
 
 export const login = async (values: z.infer<typeof LoginSchema>) => {
   const validatedFields = LoginSchema.safeParse(values);
@@ -16,6 +17,7 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
   const { email, password } = validatedFields.data;
 
   const existingUser = await getUserByEmail(email);
+
   if (!existingUser || !existingUser.email || !existingUser.password) {
     return { error: "Email does not exist!" };
   }
@@ -31,5 +33,5 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
     return { success: "Confirmation email sent!" };
   }
 
-  return { success: "Login process started!" };
+  return { success: "Login Successful!" };
 };
