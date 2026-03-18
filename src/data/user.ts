@@ -1,17 +1,19 @@
-import { connectDB } from "@/lib/db"; // Aapka prisma client path
+import { connectDB } from "@/lib/db"; 
 
 export const getUserByEmail = async (email: string) => {
   try {
-    const user = await connectDB.user.findUnique({ where: { email } });
+    const db = await connectDB();
+    const user = await db.user.findUnique({ where: { email } });
     return user;
-  } catch {
+  } catch (error) {
     return null;
   }
 };
 
 export const getUserById = async (id: string) => {
   try {
-    const user = await connectDB.user.findUnique({ where: { id } });
+    const db = await connectDB();
+    const user = await db.user.findUnique({ where: { id } });
     return user;
   } catch {
     return null;
