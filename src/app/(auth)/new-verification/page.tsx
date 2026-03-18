@@ -1,75 +1,87 @@
 "use client";
-import { useCallback, useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+
+import { useState } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import { newVerification } from "@/actions/new-verification";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+
 export default function NewVerificationPage() {
+  const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
 
   const searchParams = useSearchParams();
   const router = useRouter();
-
   const token = searchParams.get("token");
 
-  const onSubmit = useCallback(() => {
-    if (success || error) return;
-
+  const onVerify = async () => {
     if (!token) {
       setError("Missing token!");
       return;
     }
 
-    newVerification(token)
-      .then((data) => {
-        setSuccess(data.success);
+    setIsPending(true);
+    setError("");
+    setSuccess("");
+
+    try {
+      const data = await newVerification(token);
+
+      if (data?.error) {
         setError(data.error);
+        setIsPending(false);
+      }
 
-        if (data.success) {
-          toast.success("Email verified!");
-          setTimeout(() => {
-            router.push("/dashboard");
-          }, 2000);
-        }
-      })
-      .catch(() => {
-        setError("Something went wrong!");
-      });
-  }, [token, success, error, router]);
+      if (data?.success) {
+        setSuccess(data.success);
+        toast.success("Verification successful! Opening dashboard...");
 
-  useEffect(() => {
-    onSubmit();
-  }, [onSubmit]);
+        setTimeout(() => {
+          router.push("/dashboard");
+          router.refresh();
+        }, 2000);
+      }
+    } catch (err) {
+      setError("Something went wrong!");
+      setIsPending(false);
+    }
+  };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
-      <div className="p-10 bg-white shadow-2xl rounded-2xl w-[450px] text-center border border-gray-100">
-        <h2 className="text-3xl font-extrabold mb-6 text-gray-800">Confirming...</h2>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-slate-50">
+      <div className="p-10 bg-white shadow-2xl rounded-3xl w-full max-w-md text-center border border-gray-100">
+        <h2 className="text-3xl font-bold mb-4 text-gray-800">Confirm Email</h2>
+        <p className="text-gray-500 mb-8">
+          Is it really you? Click the button below to confirm your identity and access your dashboard.
+        </p>
 
         {!success && !error && (
-          <div className="flex justify-center items-center py-6">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-blue-600"></div>
-          </div>
+          <button
+            onClick={onVerify}
+            disabled={isPending}
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl transition-all shadow-lg active:scale-95 disabled:bg-gray-400"
+          >
+            {isPending ? "Verifying..." : "Yes, Verify My Account"}
+          </button>
         )}
 
         {success && (
-          <div className="p-4 bg-green-50 border border-green-200 text-green-700 rounded-xl font-medium animate-bounce">
-            {success} ✨ Redirecting to login...
+          <div className="p-4 bg-green-50 border border-green-200 text-green-700 rounded-xl font-medium animate-pulse">
+            ✅ {success} Redirecting...
           </div>
         )}
 
         {error && (
           <div className="p-4 bg-red-50 border border-red-200 text-red-700 rounded-xl font-medium">
-            {error} ❌
+            ❌ {error}
           </div>
         )}
 
         <button
           onClick={() => router.push("/login")}
-          className="mt-8 text-sm font-semibold text-blue-600 hover:text-blue-800 transition-colors"
+          className="mt-6 text-sm text-gray-400 hover:text-blue-600 transition"
         >
-          Back to Login
+          Cancel and go back
         </button>
       </div>
     </div>
