@@ -39,7 +39,7 @@ export const RegisterForm = () => {
             description: 'Login Successful. Redirecting...', duration: 800
           });
           setTimeout(() => {
-          router.push("/dashboard");
+            router.push("/dashboard");
           }, 3000);
         }
       });
@@ -55,14 +55,14 @@ export const RegisterForm = () => {
           disabled={isPending}
           placeholder="Full Name"
           required
-          className="w-full p-3 border border-gray-500 text-gray-800 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+          className="p-2  flex h-10 w-full text-gray-500 rounded-md border-2 border-gray-400 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 focus:border-none"
         />
         <input
           {...form.register("email")}
           disabled={isPending}
           placeholder="Email"
           required
-          className="w-full p-3 border border-gray-500 text-gray-800 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+          className="p-2  flex h-10 w-full text-gray-500 rounded-md border-2 border-gray-400 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 focus:border-none"
         />
         <input
           {...form.register("password")}
@@ -70,7 +70,7 @@ export const RegisterForm = () => {
           type="password"
           required
           placeholder="Password"
-          className="w-full p-3 border border-gray-500 text-gray-800 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+          className="p-2  flex h-10 w-full text-gray-500 rounded-md border-2 border-gray-400 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 focus:border-none"
         />
 
         {error &&

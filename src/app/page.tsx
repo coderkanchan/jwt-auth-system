@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { Button } from "@/components/ui/button";
+//import { Button } from "@/components/ui/button";
 
 export default async function HomePage() {
   const session = await getServerSession(authOptions);
@@ -19,21 +19,21 @@ export default async function HomePage() {
         <div className="flex justify-center gap-4">
           {session ? (
             <Link href="/dashboard">
-              <Button className="bg-gray-400 text-black hover:bg-gray-200 w-auto px-8">
+              <button className="bg-gray-400 text-black hover:bg-gray-200 w-auto px-8">
                 Go to Dashboard
-              </Button>
+              </button>
             </Link>
           ) : (
             <>
               <Link href="/login">
-                <Button className="bg-blue-400 text-black hover:bg-gray-800 w-auto px-8">
+                <button className="bg-blue-400 text-black hover:bg-gray-800 w-auto px-8">
                   Sign In
-                </Button>
+                </button>
               </Link>
               <Link href="/register">
-                <Button className="bg-blue-600 text-white hover:bg-blue-700 w-auto px-8 border-none">
+                <button className="bg-blue-600 text-white hover:bg-blue-700 w-auto px-8 border-none">
                   Get Started
-                </Button>
+                </button>
               </Link>
             </>
           )}
