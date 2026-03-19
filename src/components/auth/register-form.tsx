@@ -1,3 +1,4 @@
+
 "use client";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -10,13 +11,15 @@ import Link from "next/link";
 import { toast } from 'sonner';
 import { useRouter } from "next/navigation";
 import { checkVerificationStatus } from "@/actions/check-status";
+import { signIn } from "next-auth/react"; 
 
 export const RegisterForm = () => {
-  const router = useRouter()
+  const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [emailForStatus, setEmailForStatus] = useState("");
+  const [savedPassword, setSavedPassword] = useState(""); 
 
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
@@ -38,7 +41,8 @@ export const RegisterForm = () => {
 
         if (data?.success) {
           setSuccess(data.success);
-          setEmailForStatus(values.email); 
+          setEmailForStatus(values.email);
+          setSavedPassword(values.password); 
           form.reset();
 
           toast.info("Verification mail sent! Monitoring status...");
@@ -52,21 +56,33 @@ export const RegisterForm = () => {
   useEffect(() => {
     let interval: NodeJS.Timeout;
 
-    if (success && emailForStatus) {
+    if (success && emailForStatus && savedPassword) {
       interval = setInterval(async () => {
         const status = await checkVerificationStatus(emailForStatus);
 
         if (status.isVerified) {
           clearInterval(interval);
-          toast.success("Verification successful! Redirecting to dashboard...");
 
-          router.push("/dashboard");
+          const result = await signIn("credentials", {
+            email: emailForStatus,
+            password: savedPassword,
+            redirect: false, 
+          });
+
+          if (result?.error) {
+            toast.error("Auto-login failed. Please login manually.");
+            router.push("/login");
+          } else {
+            toast.success("Account verified & logged in! ✨");
+            router.push("/dashboard");
+            router.refresh();
+          }
         }
-      }, 3000); 
+      }, 3000);
     }
 
     return () => clearInterval(interval);
-  }, [success, emailForStatus, router]);
+  }, [success, emailForStatus, savedPassword, router]);
 
   return (
     <div className="max-w-md w-full p-6 bg-white rounded-xl shadow-lg border border-gray-100">
