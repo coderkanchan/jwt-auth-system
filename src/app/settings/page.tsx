@@ -1,9 +1,14 @@
 import { currentUser } from "@/lib/auth-user";
 import { SettingsForm } from "@/components/settings-form";
-import { getUserByEmail } from "@/data/user"; 
+import { getUserByEmail } from "@/data/user";
+import { redirect } from "next/navigation";
 
 const SettingsPage = async () => {
   const user = await currentUser();
+
+  if (!user) {
+    return redirect("/login");
+  }
 
   const dbUser = await getUserByEmail(user?.email || "");
 
