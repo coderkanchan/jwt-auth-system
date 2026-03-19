@@ -5,6 +5,7 @@ const UserSchema = new Schema({
   email: { type: String, unique: true, required: true },
   password: { type: String, required: true, select: false },
   emailVerified: { type: Date, default: null },
+  isTwoFactorEnabled: { type: Boolean, default: false },
   role: { type: String, enum: ["user", "admin"], default: "user" },
 }, { timestamps: true });
 
