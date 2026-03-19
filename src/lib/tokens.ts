@@ -3,15 +3,16 @@ import VerificationToken from "@/models/VerificationToken";
 import { connectDB } from "./db";
 
 export const generateVerificationToken = async (email: string) => {
+  const normalizedEmail = email.toLowerCase();
   const token = uuidv4();
-  const expires = new Date(new Date().getTime() + 3600 * 1000); 
+  const expires = new Date(new Date().getTime() + 3600 * 1000);
 
   await connectDB();
 
-  await VerificationToken.deleteOne({ email });
+  await VerificationToken.deleteOne({ email: normalizedEmail });
 
   const verificationToken = await VerificationToken.create({
-    email,
+    email: normalizedEmail,
     token,
     expires,
   });

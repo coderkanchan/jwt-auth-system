@@ -26,12 +26,11 @@ export const LoginForm = () => {
     setError("");
     setSuccess("");
     startTransition(async () => {
-     
       const data = await login(values);
 
       if (data?.error) {
         setError(data.error);
-        return; 
+        return;
       }
 
       if (data?.success === "Confirmation email sent!") {
@@ -40,29 +39,24 @@ export const LoginForm = () => {
       }
 
       const result = await signIn("credentials", {
-        email: values.email,
+        email: values.email.toLowerCase(), 
         password: values.password,
         redirect: false,
       });
 
       if (result?.error) {
         setError("Invalid credentials!");
+        return;
       }
 
-      if (result?.ok && !result?.error) {
-        toast.success('Welcome back!', {
-          description: 'Login Successful. Redirecting...',
-          duration: 1500
-        });
-        setTimeout(() => {
-          router.push("/dashboard");
-          router.refresh();
-        }, 1500);
+      if (result?.ok) {
+        toast.success('Welcome back!');
+        router.push("/dashboard");
+        router.refresh();
       }
     });
   };
 
-  
   return (
     <div className="max-w-md w-full mx-auto p-6 bg-white rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-4 text-gray-600">Login</h2>

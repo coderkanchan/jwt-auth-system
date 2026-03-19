@@ -26,16 +26,14 @@ export const authOptions: NextAuthOptions = {
 
         if (validatedFields.success) {
           const { email, password } = validatedFields.data;
-
+          const normalizedEmail = email.toLowerCase();
           await connectDB();
 
-          const user = await User.findOne({ email }).select("+password");
+          const user = await User.findOne({ email: normalizedEmail }).select("+password");
 
           if (!user || !user.password) return null;
 
-          const isAlreadyHashed = password === user.password;
-
-          const passwordsMatch = isAlreadyHashed || await bcrypt.compare(password, user.password);
+          const passwordsMatch = await bcrypt.compare(password, user.password);
 
           if (passwordsMatch) {
             return {

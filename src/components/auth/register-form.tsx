@@ -1,4 +1,3 @@
-
 "use client";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -41,7 +40,7 @@ export const RegisterForm = () => {
 
         if (data?.success) {
           setSuccess(data.success);
-          setEmailForStatus(values.email);
+          setEmailForStatus(values.email.toLowerCase());
           setSavedPassword(values.password);
           form.reset();
 
@@ -65,7 +64,7 @@ export const RegisterForm = () => {
             clearInterval(interval);
 
             const result = await signIn("credentials", {
-              email: emailForStatus,
+              email: emailForStatus.toLowerCase(),
               password: savedPassword,
               redirect: false,
             });

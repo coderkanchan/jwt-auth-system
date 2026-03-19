@@ -16,11 +16,12 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
   }
 
   const { email, password, name } = validatedFields.data;
+  const normalizedEmail = email.toLowerCase();
   const hashedPassword = await bcrypt.hash(password, 10);
 
   await connectDB();
 
-  const existingUser = await User.findOne({ email });
+  const existingUser = await User.findOne({ email: normalizedEmail });
 
   if (existingUser) {
     return { error: "Email already in use!" };
@@ -28,11 +29,11 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
 
   await User.create({
     name,
-    email,
+    email: normalizedEmail,
     password: hashedPassword,
   });
 
-  const verificationToken = await generateVerificationToken(email);
+  const verificationToken = await generateVerificationToken(normalizedEmail);
 
   await sendVerificationEmail(
     verificationToken.email,
