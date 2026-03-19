@@ -60,7 +60,6 @@ export const authOptions: NextAuthOptions = {
       if (!existingUser || !existingUser.emailVerified) {
         return false;
       }
-
       return true;
     },
     async jwt({ token, user }) {
