@@ -8,10 +8,10 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const domain = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+const domain = process.env.NEXTAUTH_URL || "http://localhost:3000";
 
 export const sendVerificationEmail = async (email: string, token: string) => {
-  const confirmLink = `${domain}/auth/new-verification?token=${token}`;
+  const confirmLink = `${domain}/new-verification?token=${token}`;
 
   await transporter.sendMail({
     from: process.env.SMTP_EMAIL,
