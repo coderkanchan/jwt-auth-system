@@ -11,3 +11,7 @@ export const RegisterSchema = z.object({
   password: z.string().min(8, "Password must be at least 8 characters"),
   name: z.string().min(1, "Full name is required"),
 });
+
+export const SettingsSchema = z.object({
+  isTwoFactorEnabled: z.optional(z.boolean()),
+});
