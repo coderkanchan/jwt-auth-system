@@ -1,18 +1,22 @@
 "use client";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState, useTransition } from "react";
+import { useState, useEffect, useTransition } from "react";
 import * as z from "zod";
 import { RegisterSchema } from "@/schemas";
 import { register } from "@/actions/register";
 import { Social } from "./social";
 import Link from "next/link";
 import { toast } from 'sonner';
+import { useRouter } from "next/navigation";
+import { checkVerificationStatus } from "@/actions/check-status";
 
 export const RegisterForm = () => {
+  const router = useRouter()
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
+  const [emailForStatus, setEmailForStatus] = useState("");
 
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
@@ -34,22 +38,36 @@ export const RegisterForm = () => {
 
         if (data?.success) {
           setSuccess(data.success);
+          setEmailForStatus(values.email); 
           form.reset();
 
-          toast.success('Registration Successful!', {
-            description: 'Please verify your email before logging in.',
-            duration: 3000
-          });
+          toast.info("Verification mail sent! Monitoring status...");
         }
       } catch (err) {
-        console.error("REGISTRATION_ERROR:", err);
-        setError("Something went wrong. Please try again later.");
-        toast.error("Network Error", {
-          description: "Could not connect to the server."
-        });
+        setError("Something went wrong.");
       }
     });
   };
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+
+    if (success && emailForStatus) {
+      interval = setInterval(async () => {
+        const status = await checkVerificationStatus(emailForStatus);
+
+        if (status.isVerified) {
+          clearInterval(interval);
+          toast.success("Verification successful! Redirecting to dashboard...");
+
+          router.push("/dashboard");
+        }
+      }, 3000); 
+    }
+
+    return () => clearInterval(interval);
+  }, [success, emailForStatus, router]);
+
   return (
     <div className="max-w-md w-full p-6 bg-white rounded-xl shadow-lg border border-gray-100">
       <h2 className="text-2xl font-bold text-center mb-6 text-gray-500">Create an Account</h2>
