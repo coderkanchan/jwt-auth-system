@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { LogoutButton } from "./auth/logout-button";
 
+
 export const Navbar = async () => {
   const session = await getServerSession(authOptions);
 
