@@ -5,6 +5,7 @@ import { connectDB } from "./db";
 import User from "@/models/User";
 import { LoginSchema } from "@/schemas";
 import GoogleProvider from "next-auth/providers/google";
+import GitHub from "next-auth/providers/github";
 
 export const authOptions: NextAuthOptions = {
   session: { strategy: "jwt" },
@@ -12,6 +13,10 @@ export const authOptions: NextAuthOptions = {
     signIn: "/login",
   },
   providers: [
+    GitHub({
+      clientId: process.env.GITHUB_CLIENT_ID!,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET!,
+    }),
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
