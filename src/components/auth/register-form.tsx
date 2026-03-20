@@ -73,11 +73,11 @@ export const RegisterForm = () => {
 
             if (result?.error) {
               toast.error("Verified! Please login manually.");
-              router.push("/login");
+              router.replace("/login");
             } else {
 
               toast.success("Account verified! Welcome to Dashboard.");
-              router.push("/dashboard");
+              router.replace("/dashboard");
               router.refresh();
             }
           }

@@ -63,7 +63,7 @@ export const LoginForm = () => {
 
           if (result?.ok) {
             toast.success('Welcome back!');
-            router.push("/dashboard");
+            router.replace("/dashboard");
             router.refresh();
           }
         }
