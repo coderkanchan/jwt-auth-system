@@ -10,6 +10,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from 'sonner';
 import { login } from "@/actions/login"
+import { Eye, EyeOff } from "lucide-react";
 
 export const LoginForm = () => {
   const router = useRouter();
@@ -17,10 +18,11 @@ export const LoginForm = () => {
   const [showTwoFactor, setShowTwoFactor] = useState(false);
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
-    defaultValues: { email: "", password: "", code: "" }, 
+    defaultValues: { email: "", password: "", code: "" },
   });
 
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
@@ -98,13 +100,22 @@ export const LoginForm = () => {
               placeholder="Email"
               className="p-2 flex h-10 w-full text-gray-500 rounded-md border border-gray-300 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 focus:border-none"
             />
-            <input
-              {...form.register("password")}
-              disabled={isPending}
-              type="password"
-              placeholder="Password"
-              className="p-2 flex h-10 w-full text-gray-500 rounded-md border border-gray-300 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 focus:border-none"
-            />
+            <div className="relative">
+              <input
+                {...form.register("password")}
+                disabled={isPending}
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+                className="p-2 flex h-10 w-full text-gray-500 rounded-md border border-gray-300 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 focus:border-none"
+              />
+              <button
+                type="button" 
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors"
+              >
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
+            </div>
           </>
         )}
 
@@ -134,7 +145,7 @@ export const LoginForm = () => {
               </div>
             </div>
             <Social />
-           
+
             <p className="text-center mt-5 text-xs font-semibold text-gray-400">
               Already have an account?{" "}
               <Link href="/register" className="text-blue-500 hover:underline">

@@ -54,7 +54,7 @@ export const authOptions: NextAuthOptions = {
 
       await connectDB();
       const existingUser = await User.findById(user.id);
-
+      console.log("Production Login Attempt:", existingUser?.email);
       if (!existingUser || !existingUser.emailVerified) {
         return false;
       }
