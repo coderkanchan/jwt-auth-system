@@ -2,11 +2,12 @@
 
 import { signIn } from "next-auth/react";
 import { FcGoogle } from "react-icons/fc";
-import { FaGithub } from "react-icons/fa"; 
+import { FaGithub } from "react-icons/fa";
+import { FaFacebook } from "react-icons/fa";
 
 export const Social = () => {
 
-  const onClick = (provider: "google" | "github") => {
+  const onClick = (provider: "google" | "github" | "facebook") => {
     signIn(provider, {
       callbackUrl: "/dashboard",
     });
@@ -28,6 +29,14 @@ export const Social = () => {
       >
         <FaGithub className="h-5 w-5 mr-2" />
         Continue with GitHub
+      </button>
+
+      <button
+        className="w-full inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors bg-[#1877F2] text-white hover:bg-[#166fe5] h-10 px-4 py-2"
+        onClick={() => onClick("facebook")}
+      >
+        <FaFacebook className="h-5 w-5 mr-2" />
+        Continue with Facebook
       </button>
     </div>
   );

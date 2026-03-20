@@ -155,8 +155,8 @@ export const LoginForm = () => {
             </div>
             <Social />
 
-            <p className="text-center mt-5 text-xs font-semibold text-gray-400">
-              Already have an account?{" "}
+            <p className="text-center mt-5 text-base font-medium text-gray-500">
+              Don't have an account?{" "}
               <Link href="/register" className="text-blue-500 hover:underline">
                 register
               </Link>

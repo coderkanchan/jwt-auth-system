@@ -161,7 +161,7 @@ export const RegisterForm = () => {
           <Social />
         </div>
 
-        <p className="text-center mt-5 text-xs font-semibold text-gray-400">
+        <p className="text-center mt-5 text-base font-medium text-gray-500">
           Already have an account?{" "}
           <Link href="/login" className="text-blue-500 hover:underline">
             login
