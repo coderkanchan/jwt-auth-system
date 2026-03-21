@@ -1,43 +1,36 @@
 import { withAuth } from "next-auth/middleware";
 import { NextResponse } from "next/server";
-import {
-  publicRoutes,
-  authRoutes,
-  DEFAULT_LOGIN_REDIRECT,
-  apiAuthPrefix
-} from "@/routes";
 
 export default withAuth(
   function middleware(req) {
     const { nextUrl } = req;
-    const isLoggedIn = !!req.nextauth.token;
+    const token = req.nextauth.token;
+    const isLoggedIn = !!token;
 
-    const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
-    const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
-    const isAuthRoute = authRoutes.includes(nextUrl.pathname);
-
-    if (isApiAuthRoute) return null;
-
-    if (isAuthRoute) {
-      if (isLoggedIn) {
-        return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
-      }
-      return null;
+    if (isLoggedIn && (nextUrl.pathname === "/login" || nextUrl.pathname === "/register")) {
+      return NextResponse.redirect(new URL("/dashboard", nextUrl));
     }
 
-    if (!isLoggedIn && !isPublicRoute) {
-      return NextResponse.redirect(new URL("/login", nextUrl));
-    }
-
-    return null;
+    return NextResponse.next();
   },
   {
     callbacks: {
-      authorized: ({ token }) => true, 
+      authorized: ({ token, req }) => {
+        const { pathname } = req.nextUrl;
+        if (
+          pathname === "/" ||
+          pathname === "/login" ||
+          pathname === "/register" ||
+          pathname.startsWith("/api")
+        ) {
+          return true;
+        }
+        return !!token;
+      },
     },
   }
 );
 
 export const config = {
-  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 };
