@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { checkVerificationStatus } from "@/actions/check-status";
 import { signIn } from "next-auth/react";
 import { Eye, EyeOff } from "lucide-react";
+import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 
 export const RegisterForm = () => {
   const router = useRouter();
@@ -77,7 +78,7 @@ export const RegisterForm = () => {
             } else {
 
               toast.success("Account verified! Welcome to Dashboard.");
-              router.replace("/dashboard");
+              router.replace(DEFAULT_LOGIN_REDIRECT);
               router.refresh();
             }
           }

@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import { toast } from 'sonner';
 import { login } from "@/actions/login"
 import { Eye, EyeOff } from "lucide-react";
+import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 
 export const LoginForm = () => {
   const router = useRouter();
@@ -63,7 +64,7 @@ export const LoginForm = () => {
 
           if (result?.ok) {
             toast.success('Welcome back!');
-            router.replace("/dashboard");
+            router.replace(DEFAULT_LOGIN_REDIRECT);
             router.refresh();
           }
         }
