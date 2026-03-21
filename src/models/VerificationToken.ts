@@ -6,5 +6,6 @@ const VerificationTokenSchema = new Schema({
   expires: { type: Date, required: true },
 });
 
-const VerificationToken = models.VerificationToken || model("VerificationToken", VerificationTokenSchema);
+const VerificationToken = mongoose.models.VerificationToken || mongoose.model("VerificationToken", VerificationTokenSchema);
+
 export default VerificationToken;

@@ -1,5 +1,4 @@
 "use server";
-
 import { connectDB } from "@/lib/db";
 import User from "@/models/User";
 import VerificationToken from "@/models/VerificationToken";

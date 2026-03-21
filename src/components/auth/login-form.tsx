@@ -76,7 +76,7 @@ export const LoginForm = () => {
 
   return (
     <div className="max-w-md w-full mx-auto p-6 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-4 text-gray-600">
+      <h2 className="text-2xl font-bold mb-4 text-center text-gray-500">
         {showTwoFactor ? "Two-Factor Authentication" : "Login"}
       </h2>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
