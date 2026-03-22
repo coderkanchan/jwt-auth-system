@@ -54,10 +54,12 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
+   
     async signIn({ user, account }) {
+      await connectDB();
+
       if (account?.provider !== "credentials") {
         try {
-          await connectDB();
           const existingUser = await User.findOne({ email: user.email });
 
           if (!existingUser) {
@@ -76,18 +78,17 @@ export const authOptions: NextAuthOptions = {
         }
       }
 
-      await connectDB();
+      const existingUser = await User.findOne({ email: user.email });
 
-      const existingUser = await User.findById(user.id);
-
-      console.log("Production Login Attempt:", existingUser?.email);
+      console.log("Login Attempt for:", existingUser?.email);
 
       if (!existingUser || !existingUser.emailVerified) {
-        return false;
+        return false; 
       }
 
       return true;
     },
+
     async jwt({ token, user }) {
       if (user) {
         token.role = (user as any).role;
