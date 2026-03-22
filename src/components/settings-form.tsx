@@ -10,7 +10,7 @@ interface SettingsFormProps {
 
 export const SettingsForm = ({ initial2FA }: SettingsFormProps) => {
   const [isPending, startTransition] = useTransition();
-  
+
   const [isEnabled, setIsEnabled] = useState(initial2FA);
 
   useEffect(() => {
