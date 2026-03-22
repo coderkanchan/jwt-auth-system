@@ -54,7 +54,6 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-   
     async signIn({ user, account }) {
       await connectDB();
 
@@ -67,23 +66,27 @@ export const authOptions: NextAuthOptions = {
               name: user.name,
               email: user.email,
               image: user.image,
-              emailVerified: new Date(),
+              emailVerified: new Date(), 
               role: "USER",
             });
           }
           return true;
         } catch (error) {
-          console.error("Error saving social user:", error);
+          console.error("Error in social sign-in:", error);
           return false;
         }
       }
-      const existingUser = await User.findOne({ email: user.email });
-      console.log("Login Attempt for:", existingUser?.email);
+      try {
+        const existingUser = await User.findOne({ email: user.email });
 
-      if (!existingUser || !existingUser.emailVerified) {
-        return false; 
+        if (!existingUser || !existingUser.emailVerified) {
+          return false; 
+        }
+        return true; 
+      } catch (error) {
+        console.error("Error in credentials sign-in:", error);
+        return false;
       }
-      return true;
     },
 
     async jwt({ token, user }) {
