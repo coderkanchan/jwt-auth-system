@@ -65,7 +65,7 @@ export const authOptions: NextAuthOptions = {
               name: user.name,
               email: user.email,
               image: user.image,
-              emailVerified: new Date(), 
+              emailVerified: new Date(),
               role: "USER",
             });
           }
@@ -77,11 +77,15 @@ export const authOptions: NextAuthOptions = {
       }
 
       await connectDB();
+
       const existingUser = await User.findById(user.id);
+
       console.log("Production Login Attempt:", existingUser?.email);
+
       if (!existingUser || !existingUser.emailVerified) {
         return false;
       }
+
       return true;
     },
     async jwt({ token, user }) {
