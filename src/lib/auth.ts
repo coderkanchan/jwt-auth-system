@@ -8,6 +8,7 @@ import GoogleProvider from "next-auth/providers/google";
 import GitHub from "next-auth/providers/github";
 
 export const authOptions: NextAuthOptions = {
+  debug: true,
   session: { strategy: "jwt" },
   pages: {
     signIn: "/login",
@@ -66,8 +67,8 @@ export const authOptions: NextAuthOptions = {
               name: user.name,
               email: user.email,
               image: user.image,
-              emailVerified: new Date(), 
-              role: "USER",
+              emailVerified: new Date(),
+              role: "user",
             });
           }
           return true;
@@ -80,9 +81,9 @@ export const authOptions: NextAuthOptions = {
         const existingUser = await User.findOne({ email: user.email });
 
         if (!existingUser || !existingUser.emailVerified) {
-          return false; 
+          return false;
         }
-        return true; 
+        return true;
       } catch (error) {
         console.error("Error in credentials sign-in:", error);
         return false;
