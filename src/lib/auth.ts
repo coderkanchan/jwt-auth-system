@@ -60,7 +60,6 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async signIn({ user, account }) {
-      //if (account?.provider !== "credentials") return true;
       if (account?.provider !== "credentials") {
         try {
           await connectDB();
