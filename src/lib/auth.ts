@@ -77,15 +77,12 @@ export const authOptions: NextAuthOptions = {
           return false;
         }
       }
-
       const existingUser = await User.findOne({ email: user.email });
-
       console.log("Login Attempt for:", existingUser?.email);
 
       if (!existingUser || !existingUser.emailVerified) {
         return false; 
       }
-
       return true;
     },
 
