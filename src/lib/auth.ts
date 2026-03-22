@@ -60,7 +60,27 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async signIn({ user, account }) {
-      if (account?.provider !== "credentials") return true;
+      //if (account?.provider !== "credentials") return true;
+      if (account?.provider !== "credentials") {
+        try {
+          await connectDB();
+          const existingUser = await User.findOne({ email: user.email });
+
+          if (!existingUser) {
+            await User.create({
+              name: user.name,
+              email: user.email,
+              image: user.image,
+              emailVerified: new Date(), 
+              role: "USER",
+            });
+          }
+          return true;
+        } catch (error) {
+          console.error("Error saving social user:", error);
+          return false;
+        }
+      }
 
       await connectDB();
       const existingUser = await User.findById(user.id);

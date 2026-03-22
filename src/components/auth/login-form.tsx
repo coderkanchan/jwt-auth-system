@@ -88,7 +88,7 @@ export const LoginForm = () => {
               {...form.register("code")}
               disabled={isPending}
               placeholder="------"
-              className="p-2 flex h-10 w-full text-gray-500 rounded-md border border-gray-300 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 focus:border-none"
+              className="p-2  flex h-10 w-full text-gray-500 rounded-md border-2 border-gray-400 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 focus:border-none"
             />
           </div>
         )}
@@ -99,7 +99,7 @@ export const LoginForm = () => {
               {...form.register("email")}
               disabled={isPending}
               placeholder="Email"
-              className="p-2 flex h-10 w-full text-gray-500 rounded-md border border-gray-300 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 focus:border-none"
+              className="p-2  flex h-10 w-full text-gray-500 rounded-md border-2 border-gray-400 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 focus:border-none"
             />
             <div className="relative">
               <input
@@ -107,7 +107,7 @@ export const LoginForm = () => {
                 disabled={isPending}
                 type={showPassword ? "text" : "password"}
                 placeholder="Password"
-                className="p-2 flex h-10 w-full text-gray-500 rounded-md border border-gray-300 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 focus:border-none"
+                className="p-2  flex h-10 w-full text-gray-500 rounded-md border-2 border-gray-400 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 focus:border-none"
               />
               <button
                 type="button"

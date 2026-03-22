@@ -10,6 +10,7 @@ import TwoFactorToken from "@/models/TwoFactorToken";
 import TwoFactorConfirmation from "@/models/TwoFactorConfirmation";
 
 export const login = async (values: z.infer<typeof LoginSchema>, code?: string) => {
+
   const validatedFields = LoginSchema.safeParse(values);
 
   if (!validatedFields.success) {
@@ -27,6 +28,7 @@ export const login = async (values: z.infer<typeof LoginSchema>, code?: string) 
   }
 
   const passwordsMatch = await bcrypt.compare(password, existingUser.password);
+  
   if (!passwordsMatch) return { error: "Invalid credentials!" };
 
   if (!existingUser.emailVerified) {
