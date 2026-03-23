@@ -103,10 +103,10 @@ export const RegisterForm = () => {
             {...form.register("name")}
             disabled={isPending}
             placeholder="Full Name"
-            className={`flex h-10 w-full text-gray-500 rounded-md border-2 border-gray-400 bg-white px-3 py-6  text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:cursor-not-allowed disabled:opacity-50 focus:border-none transition-all duration-500 ease-in ${form.formState.errors.name ? "border-red-500 focus-visible:ring-red-500" : "border-gray-400 focus-visible:ring-blue-600"}`}
+            className={`flex h-10 w-full text-gray-500 rounded-md border-2 bg-white px-3 py-6  text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2  disabled:cursor-not-allowed disabled:opacity-50 focus:border-none transition-all duration-500 ease-in ${form.formState.errors.name ? "border-red-500 focus-visible:ring-red-500" : "border-gray-400 focus-visible:ring-blue-600"}`}
           />
           {form.formState.errors.name && (
-            <p className="text-red-500 text-xs mt-1 ml-1">{form.formState.errors.name.message}</p>
+            <p className="text-red-500 text-sm font-semibold mt-1 ml-1">{form.formState.errors.name.message}</p>
           )}
         </div>
 
@@ -115,10 +115,10 @@ export const RegisterForm = () => {
             {...form.register("email")}
             disabled={isPending}
             placeholder="Email"
-            className={`flex h-10 w-full text-gray-500 rounded-md border-2  bg-white px-3 py-6  text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:cursor-not-allowed disabled:opacity-50 focus:border-none transition-all duration-500 ease ${form.formState.errors.email ? "border-red-500" : "border-gray-400"}`}
+             className={`flex h-10 w-full text-gray-500 rounded-md border-2 bg-white px-3 py-6  text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2  disabled:cursor-not-allowed disabled:opacity-50 focus:border-none transition-all duration-500 ease-in ${form.formState.errors.name ? "border-red-500 focus-visible:ring-red-500" : "border-gray-400 focus-visible:ring-blue-600"}`}
           />
           {form.formState.errors.email && (
-            <p className="text-red-500 text-xs mt-1 ml-1">{form.formState.errors.email.message}</p>
+            <p className="text-red-500 text-sm font-semibold mt-1 ml-1">{form.formState.errors.email.message}</p>
           )}
         </div>
 
@@ -128,7 +128,7 @@ export const RegisterForm = () => {
             disabled={isPending}
             type={showPassword ? "text" : "password"}
             placeholder="Password"
-            className={`flex h-10 w-full text-gray-500 rounded-md border-2 bg-white px-3 py-5 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:cursor-not-allowed disabled:opacity-50 focus:border-none transition-all duration-500 ease ${form.formState.errors.password ? " border-red-500" : "border-gray-400"} `}
+             className={`flex h-10 w-full text-gray-500 rounded-md border-2 bg-white px-3 py-6  text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2  disabled:cursor-not-allowed disabled:opacity-50 focus:border-none transition-all duration-500 ease-in ${form.formState.errors.name ? "border-red-500 focus-visible:ring-red-500" : "border-gray-400 focus-visible:ring-blue-600"}`}
           />
           <button
             type="button"
@@ -138,7 +138,7 @@ export const RegisterForm = () => {
             {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
           </button>
           {form.formState.errors.password && (
-            <p className="text-red-500 text-xs mt-1">{form.formState.errors.password.message}</p>
+            <p className="text-red-500 text-sm font-semibold mt-1">{form.formState.errors.password.message}</p>
           )}
         </div>
 
