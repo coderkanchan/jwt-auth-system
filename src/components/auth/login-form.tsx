@@ -110,7 +110,7 @@ export const LoginForm = () => {
               )}
             </div>
 
-            <div className="relative">
+            {/* <div className="relative">
               <input
                 {...form.register("password")}
                 disabled={isPending}
@@ -128,12 +128,41 @@ export const LoginForm = () => {
               {form.formState.errors.password && (
                 <p className="text-red-500 text-sm font-medium mt-1">{form.formState.errors.password.message}</p>
               )}
+            </div> */}
+
+            <div className="space-y-1">
+              <div className="relative flex items-center">
+                <input
+                  {...form.register("password")}
+                  disabled={isPending}
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Password"
+                  className={`flex w-full text-gray-500 rounded-md border-2 bg-white px-3 py-4 pr-10 text-sm focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50 ${form.formState.errors.password
+                    ? "border-red-500 focus-visible:ring-red-500 placeholder:text-red-500"
+                    : "border-gray-400 focus-visible:ring-blue-600 placeholder:text-gray-500"
+                    }`}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 text-gray-500 hover:text-gray-700 transition-colors"
+                  style={{ top: '1.25rem' }}
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </div>
+
+              {form.formState.errors.password && (
+                <p className="text-red-500 text-sm font-medium mt-1">
+                  {form.formState.errors.password.message}
+                </p>
+              )}
             </div>
 
             <div className="flex justify-end mt-1">
               <Link
                 href="/reset"
-                className="text-xs font-medium text-purple-900 hover:underline transition"
+                className="text-sm font-medium text-purple-900 hover:underline transition"
               >
                 Forgot password?
               </Link>
