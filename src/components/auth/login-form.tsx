@@ -106,7 +106,7 @@ export const LoginForm = () => {
                 className={`flex w-full text-gray-500 rounded-md border-2 bg-white px-3 py-4 text-sm focus-visible:outline-none focus-visible:ring-2  disabled:cursor-not-allowed disabled:opacity-50 focus:border-none ${form.formState.errors.email ? "border-red-500 focus-visible:ring-red-500 placeholder:text-red-500" : "border-gray-400 focus-visible:ring-blue-600 placeholder:text-gray-500"}`}
               />
               {form.formState.errors.email && (
-                <p className="text-red-500 text-xs mt-1 ml-1">{form.formState.errors.email.message}</p>
+                <p className="text-red-500 text-sm font-medium mt-1 ml-1">{form.formState.errors.email.message}</p>
               )}
             </div>
 
@@ -126,7 +126,7 @@ export const LoginForm = () => {
                 {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
               {form.formState.errors.password && (
-                <p className="text-red-500 text-xs mt-1">{form.formState.errors.password.message}</p>
+                <p className="text-red-500 text-sm font-medium mt-1">{form.formState.errors.password.message}</p>
               )}
             </div>
 
