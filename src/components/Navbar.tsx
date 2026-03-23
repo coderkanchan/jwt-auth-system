@@ -41,7 +41,7 @@ export const Navbar = async () => {
             </span>
 
             <LogoutButton>
-              <button className="text-sm bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md transition">
+              <button className="text-sm bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md transition cursor-pointer">
                 Logout
               </button>
             </LogoutButton>

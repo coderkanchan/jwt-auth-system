@@ -92,23 +92,26 @@ export const RegisterForm = () => {
   }, [success, emailForStatus, savedPassword, router]);
 
   return (
-    <div className="max-w-md w-full p-6 bg-white rounded-xl shadow-lg border border-gray-100">
+    <div className="max-w-xl w-full p-6 bg-white rounded-xl shadow-lg border border-gray-100">
+
       <h2 className="text-2xl font-bold text-center mb-6 text-gray-500">Create an Account</h2>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 ">
+
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <input
           {...form.register("name")}
           disabled={isPending}
           placeholder="Full Name"
           required
-          className="p-2  flex h-10 w-full text-gray-500 rounded-md border-2 border-gray-400 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 focus:border-none"
+          className="flex h-10 w-full text-gray-500 rounded-md border-2 border-gray-400 bg-white px-3 py-6 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 focus:border-none"
         />
         <input
           {...form.register("email")}
           disabled={isPending}
           placeholder="Email"
           required
-          className="p-2  flex h-10 w-full text-gray-500 rounded-md border-2 border-gray-400 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 focus:border-none"
+          className="flex h-10 w-full text-gray-500 rounded-md border-2 border-gray-400 bg-white px-3 py-6 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 focus:border-none"
         />
+
         <div className="relative">
           <input
             {...form.register("password")}
@@ -116,7 +119,7 @@ export const RegisterForm = () => {
             type={showPassword ? "text" : "password"}
             required
             placeholder="Password"
-            className="p-2  flex h-10 w-full text-gray-500 rounded-md border-2 border-gray-400 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 focus:border-none "
+            className="flex h-10 w-full text-gray-500 rounded-md border-2 border-gray-400 bg-white px-3 py-6 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 focus:border-none "
           />
           <button
             type="button"
@@ -126,6 +129,7 @@ export const RegisterForm = () => {
             {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
           </button>
         </div>
+
         {error &&
           <div className="p-3 bg-red-100 text-red-600 rounded-lg text-sm">
             {error}
@@ -146,7 +150,7 @@ export const RegisterForm = () => {
         <button
           type="submit"
           disabled={isPending}
-          className="w-full bg-blue-600 text-white p-3 rounded-lg font-semibold hover:bg-blue-700 transition disabled:bg-gray-400">
+          className="w-full bg-blue-600 text-white p-3 rounded-lg font-semibold hover:bg-blue-700 transition disabled:bg-gray-400 cursor-pointer">
           {isPending ? "Creating Account..." : "Register"}
         </button>
 
@@ -164,12 +168,12 @@ export const RegisterForm = () => {
 
         <p className="text-center mt-5 text-base font-medium text-gray-500">
           Already have an account?{" "}
-          <Link href="/login" className="text-blue-500 hover:underline">
-            login
+          <Link href="/login" className="text-indigo-800 hover:underline">
+            Login
           </Link>
         </p>
-
       </form>
+
     </div>
   );
 };

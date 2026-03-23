@@ -8,7 +8,7 @@ export const LogoutButton = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <span onClick={onClick} className="cursor-pointer">
+    <span onClick={onClick}>
       {children}
     </span>
   );

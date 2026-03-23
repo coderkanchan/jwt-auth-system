@@ -38,9 +38,10 @@ export default function ResetPage() {
           <input
             {...form.register("email")}
             placeholder="Enter your email"
+             required
             type="email"
             disabled={isPending}
-            className="w-full p-2 border rounded-md outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-2 border text-gray-500 rounded-md outline-none focus:ring-2 focus:ring-blue-500 focus:border-none"
           />
           {error && <p className="text-red-500 text-sm">{error}</p>}
           {success && <p className="text-green-500 text-sm">{success}</p>}
