@@ -95,7 +95,13 @@ export const authOptions: NextAuthOptions = {
         token.role = (user as any).role;
         token.id = (user as any).id;
       }
-      
+      else if (token.email) {
+        const dbUser = await User.findOne({ email: token.email }).lean();
+        if (dbUser) {
+          token.role = dbUser.role;
+          token.id = dbUser._id.toString();
+        }
+      }
       return token;
     },
 
