@@ -98,38 +98,25 @@ export const LoginForm = () => {
 
         {!showTwoFactor && (
           <>
-            <input
-              {...form.register("email")}
-              disabled={isPending}
-
-              placeholder="Email"
-              className="flex h-10 w-full text-gray-500 rounded-md border-2 border-gray-400 bg-white px-3 py-5 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:cursor-not-allowed disabled:opacity-50 focus:border-none transition-all duration-500 ease"
-            />
-            {/* <div className="relative">
+            <div>
               <input
-                {...form.register("password")}
+                {...form.register("email")}
                 disabled={isPending}
-                required
-                type={showPassword ? "text" : "password"}
-                placeholder="Password"
-                className="flex h-10 w-full text-gray-500 rounded-md border-2 border-gray-400 bg-white px-3 py-5 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:cursor-not-allowed disabled:opacity-50 focus:border-none transition-all duration-500 ease focus:ring-offset-gray-400"
+                placeholder="Email"
+                className={`flex h-10 w-full text-gray-500 rounded-md border-2  bg-white px-3 py-6  text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:cursor-not-allowed disabled:opacity-50 focus:border-none transition-all duration-500 ease ${form.formState.errors.email ? "border-red-500" : "border-gray-400"}`}
               />
-              
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors"
-              >
-                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-              </button>
-            </div>  */}
+              {form.formState.errors.email && (
+                <p className="text-red-500 text-xs mt-1 ml-1">{form.formState.errors.email.message}</p>
+              )}
+            </div>
+
             <div className="relative">
               <input
                 {...form.register("password")}
                 disabled={isPending}
                 type={showPassword ? "text" : "password"}
                 placeholder="Password"
-                className={` flex h-10 w-full text-gray-500 rounded-md border-2 border-gray-400 bg-white px-3 py-5 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:cursor-not-allowed disabled:opacity-50 focus:border-none transition-all duration-500 ease ${form.formState.errors.password ? "border-red-500" : "border-gray-400"} `}
+                className={`flex h-10 w-full text-gray-500 rounded-md border-2 bg-white px-3 py-5 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:cursor-not-allowed disabled:opacity-50 focus:border-none transition-all duration-500 ease ${form.formState.errors.password ? " border-red-500" : "border-gray-400"} `}
               />
               <button
                 type="button"
