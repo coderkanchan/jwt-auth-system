@@ -16,11 +16,14 @@ export const Social = () => {
     <div className="flex flex-col items-center w-full gap-y-4">
       <button
         className="w-full inline-flex items-center justify-center rounded-md text-md font-semibold transition-colors  bg-blue-600 text-white hover:bg-blue-700 h-10 p-6 disabled:bg-gray-400 cursor-pointer"
+        type="button"
         onClick={() => onClick("google")}
       >
         <FcGoogle className="h-5 w-5 mr-2" />
         Google
       </button>
+
+
 
       <button
         className="w-full inline-flex items-center justify-center rounded-md font-semibold bg-gray-800 text-white hover:bg-black h-10 p-6 disabled:bg-gray-400 cursor-pointer text-md"
@@ -29,6 +32,6 @@ export const Social = () => {
         <FaGithub className="h-5 w-5 mr-2" />
         GitHub
       </button>
-    </div>
+    </div >
   );
 };
