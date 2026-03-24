@@ -13,6 +13,7 @@ import { checkVerificationStatus } from "@/actions/check-status";
 import { signIn } from "next-auth/react";
 import { Eye, EyeOff } from "lucide-react";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
+import { FormError } from "../form-error";
 
 export const RegisterForm = () => {
   const router = useRouter();
@@ -142,11 +143,7 @@ export const RegisterForm = () => {
           )}
         </div>
 
-        {error &&
-          <div className="p-3 bg-red-100 text-red-600 rounded-lg text-sm">
-            {error}
-          </div>
-        }
+        <FormError message={error} />
 
         {success && (
           <div className="space-y-2">
@@ -165,26 +162,26 @@ export const RegisterForm = () => {
           className="w-full bg-blue-600 text-white p-3 rounded-lg font-semibold hover:bg-blue-700 transition disabled:bg-gray-400 cursor-pointer">
           {isPending ? "Creating Account..." : "Register"}
         </button>
-
-        <div className="mt-4">
-          <div className="relative mb-4">
-            <div className="absolute inset-0 flex items-center">
-              <span className="w-full text-gray-400 border-t" />
-            </div>
-            <div className="relative flex justify-center text-xs text-gray-500 uppercase">
-              <span className="bg-white px-2 text-muted-foreground">Or continue with</span>
-            </div>
-          </div>
-          <Social />
-        </div>
-
-        <p className="text-center mt-5 text-base font-medium text-gray-500">
-          Already have an account?{" "}
-          <Link href="/login" className="text-indigo-800 hover:underline">
-            Login
-          </Link>
-        </p>
       </form>
+      <div className="mt-4">
+        <div className="relative mb-4">
+          <div className="absolute inset-0 flex items-center">
+            <span className="w-full text-gray-400 border-t" />
+          </div>
+          <div className="relative flex justify-center text-xs text-gray-500 uppercase">
+            <span className="bg-white px-2 text-muted-foreground">Or continue with</span>
+          </div>
+        </div>
+        <Social />
+      </div>
+
+      <p className="text-center mt-5 text-base font-medium text-gray-500">
+        Already have an account?{" "}
+        <Link href="/login" className="text-indigo-800 hover:underline">
+          Login
+        </Link>
+      </p>
+
 
     </div>
   );

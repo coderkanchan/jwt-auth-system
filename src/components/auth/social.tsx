@@ -27,6 +27,7 @@ export const Social = () => {
 
       <button
         className="w-full inline-flex items-center justify-center rounded-md font-semibold bg-gray-800 text-white hover:bg-black h-10 p-6 disabled:bg-gray-400 cursor-pointer text-md"
+        type="button"
         onClick={() => onClick("github")}
       >
         <FaGithub className="h-5 w-5 mr-2" />
