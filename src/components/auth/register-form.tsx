@@ -123,7 +123,7 @@ export const RegisterForm = () => {
           )}
         </div>
 
-        <div className="relative">
+        {/* <div className="relative">
           <input
             {...form.register("password")}
             disabled={isPending}
@@ -138,6 +138,28 @@ export const RegisterForm = () => {
           >
             {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
           </button>
+          {form.formState.errors.password && (
+            <p className="text-red-500 text-sm font-semibold mt-1">{form.formState.errors.password.message}</p>
+          )}
+        </div> */}
+
+        <div className="space-y-1">
+          <div className="relative flex items-center">
+            <input
+              {...form.register("password")}
+              disabled={isPending}
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              className={`flex w-full text-gray-500 rounded-md border-2 bg-white px-3 py-4 text-sm focus-visible:outline-none focus-visible:ring-2  disabled:cursor-not-allowed disabled:opacity-50 focus:border-none ${form.formState.errors.password ? "border-red-500 focus-visible:ring-red-500 placeholder:text-red-500" : "border-gray-400 focus-visible:ring-blue-600 placeholder:text-gray-500"}`}
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors"
+            >
+              {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+            </button>
+          </div>
           {form.formState.errors.password && (
             <p className="text-red-500 text-sm font-semibold mt-1">{form.formState.errors.password.message}</p>
           )}
@@ -162,7 +184,9 @@ export const RegisterForm = () => {
           className="w-full bg-blue-600 text-white p-3 rounded-lg font-semibold hover:bg-blue-700 transition disabled:bg-gray-400 cursor-pointer">
           {isPending ? "Creating Account..." : "Register"}
         </button>
+
       </form>
+
       <div className="mt-4">
         <div className="relative mb-4">
           <div className="absolute inset-0 flex items-center">
@@ -181,7 +205,6 @@ export const RegisterForm = () => {
           Login
         </Link>
       </p>
-
 
     </div>
   );
