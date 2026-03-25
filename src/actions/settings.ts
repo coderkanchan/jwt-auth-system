@@ -5,7 +5,6 @@ import User from "@/models/User";
 import { SettingsSchema } from "@/schemas";
 import { currentUser } from "@/lib/auth-user";
 import { revalidatePath } from "next/cache";
-import { getUserByEmail } from "@/data/user";
 
 export const settings = async (values: z.infer<typeof SettingsSchema>) => {
   const user = await currentUser();
@@ -20,7 +19,7 @@ export const settings = async (values: z.infer<typeof SettingsSchema>) => {
   if (!dbUser) {
     return { error: "User not found" };
   }
-  
+
   if (user.isOAuth) {
     values.email = undefined;
     values.password = undefined;

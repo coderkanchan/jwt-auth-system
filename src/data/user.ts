@@ -11,6 +11,7 @@ export const getUserByEmail = async (email: string) => {
     return null;
   }
 };
+
 export const getUserById = async (id: string) => {
   try {
     await connectDB();
