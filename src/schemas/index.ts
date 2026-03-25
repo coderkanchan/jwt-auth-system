@@ -13,7 +13,10 @@ export const RegisterSchema = z.object({
 });
 
 export const SettingsSchema = z.object({
+  name: z.optional(z.string()),
   isTwoFactorEnabled: z.optional(z.boolean()),
+  role: z.enum(["admin", "user"]),
+  image: z.optional(z.string()),
 });
 
 export const ResetSchema = z.object({
@@ -27,3 +30,4 @@ export const NewPasswordSchema = z.object({
     message: "Minimum 6 characters required",
   }),
 })
+
