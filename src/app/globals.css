@@ -49,7 +49,7 @@
 }
 
 :root {
-  --background: oklch(28.733% 0.04171 19.907);
+  --background: oklch(7.775% 0.04383 290.678);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
@@ -124,7 +124,7 @@
   body {
     @apply bg-background text-foreground;
   }
-  html {
+  /* html {
     @apply font-sans;
-  }
+  } */
 }
