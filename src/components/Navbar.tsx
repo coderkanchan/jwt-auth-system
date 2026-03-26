@@ -7,7 +7,7 @@ export const Navbar = async () => {
   const session = await getServerSession(authOptions);
 
   return (
-    <nav className="flex justify-between items-center py-3 px-8 bg-white border-b border-gray-100 shadow-sm sticky top-0 z-50">
+    <nav className="flex justify-between items-center py-3 px-8 bg-purple-800 border-b border-gray-100 shadow-sm sticky top-0 z-50">
       <Link href="/" className="font-extrabold text-2xl tracking-tighter text-sky-600 hover:opacity-80 transition">
         AUTH<span className="text-zinc-900">PRO</span>
       </Link>

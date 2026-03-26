@@ -9,7 +9,7 @@ import {
   DropdownMenuLabel
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { FaUser, FaSignOutAlt, FaCog, FaLayout } from "react-icons/fa";
+import { FaUser, FaSignOutAlt, FaCog, FaTachometerAlt } from "react-icons/fa";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 
@@ -26,11 +26,9 @@ export const UserButton = ({ user }: { user: any }) => {
       </DropdownMenuTrigger>
 
       <DropdownMenuContent className="w-64 p-2" align="end" sideOffset={10}>
-        {/* User Info Header */}
         <div className="flex flex-col space-y-1 p-2">
           <p className="text-sm font-semibold leading-none">{user?.name}</p>
           <p className="text-xs leading-none text-muted-foreground">{user?.email}</p>
-          {/* Role Badge */}
           <div className="mt-2">
             <span className="inline-flex items-center rounded-full bg-sky-100 px-2 py-0.5 text-[10px] font-medium text-sky-700 uppercase tracking-wider">
               {user?.role || "User"}
@@ -42,7 +40,7 @@ export const UserButton = ({ user }: { user: any }) => {
 
         <DropdownMenuItem asChild className="cursor-pointer focus:bg-sky-50 py-2">
           <Link href="/dashboard" className="flex items-center gap-x-2">
-            <FaLayout className="h-4 w-4 text-gray-500" />
+            <FaTachometerAlt className="h-4 w-4 text-gray-500" />
             Dashboard
           </Link>
         </DropdownMenuItem>
